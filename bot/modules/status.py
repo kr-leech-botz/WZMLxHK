@@ -4,17 +4,21 @@ from pyrogram.filters import command, regex
 from psutil import cpu_percent, virtual_memory, disk_usage
 from time import time
 from asyncio import sleep
-
+import asyncio
 from bot import bot_cache, status_reply_dict_lock, download_dict, download_dict_lock, botStartTime, Interval, config_dict, bot
 from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, editMessage, deleteMessage, auto_delete_message, sendStatusMessage, user_info, update_all_messages, delete_all_messages
 from bot.helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time, turn_page, setInterval, new_task
 from bot.helper.themes import BotTheme
-
+from bot.helper.nordbotz_utils.react_nordbotz import send_react
 
 @new_task
 async def mirror_status(_, message):
+    sticker_message = await message.reply_sticker("CAACAgUAAxkBAAEtHbNmujgYBmyBJnKtdAtKlmIOKcobWgACNwUAAra8-Vdx1bvDO-KhtjUE")
+    await asyncio.sleep(1)
+    await sticker_message.delete()
+    await send_react(message)
     async with download_dict_lock:
         count = len(download_dict)
     if count == 0:

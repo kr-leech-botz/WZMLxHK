@@ -13,7 +13,7 @@ from aiohttp.client_exceptions import ContentTypeError
 from bot import LOGGER, user_data
 from bot.helper.mirror_utils.upload_utils.ddlserver.gofile import Gofile
 from bot.helper.mirror_utils.upload_utils.ddlserver.streamtape import Streamtape
-from bot.helper.ext_utils.fs_utils import get_mime_type
+from bot.helper.nordbotz_utils.metadata import get_mime_type
 
 
 class ProgressFileReader(BufferedReader):

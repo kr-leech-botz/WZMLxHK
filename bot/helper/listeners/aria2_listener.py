@@ -7,7 +7,7 @@ from bot import aria2, download_dict_lock, download_dict, LOGGER, config_dict
 from bot.helper.ext_utils.task_manager import limit_checker
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
 from bot.helper.mirror_utils.status_utils.aria2_status import Aria2Status
-from bot.helper.ext_utils.fs_utils import get_base_name, clean_unwanted
+from bot.helper.nordbotz_utils.metadata import get_base_name, clean_unwanted
 from bot.helper.ext_utils.bot_utils import getDownloadByGid, new_thread, bt_selection_buttons, sync_to_async, get_telegraph_list
 from bot.helper.telegram_helper.message_utils import sendMessage, deleteMessage, update_all_messages
 from bot.helper.themes import BotTheme

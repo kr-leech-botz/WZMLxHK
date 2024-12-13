@@ -15,9 +15,10 @@ from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import editMessage, sendMessage
 from bot.helper.ext_utils.bot_utils import cmd_exec
 from bot.helper.ext_utils.telegraph_helper import telegraph
-
+from bot.helper.nordbotz_utils.react_nordbotz import send_react
 
 async def gen_mediainfo(message, link=None, media=None, mmsg=None):
+    await send_react(message)
     temp_send = await sendMessage(message, '<i>Generating MediaInfo...</i>')
     try:
         path = "Mediainfo/"

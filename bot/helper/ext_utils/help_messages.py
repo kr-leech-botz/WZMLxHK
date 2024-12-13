@@ -3,7 +3,7 @@ from bot.helper.telegram_helper.bot_commands import BotCommands
 
 YT_HELP_MESSAGE = ["""<i>Send links/files along with cmd or reply to cmd to mirror or leech ytdl supported stes on Telegram or GDrive or DDLs with different Engines like RClone or yt-dlp</i>
 
-➲ <b><u>Available Args</u></b>:
+<pre>➲ <b><u>Available Args</u></b>:</pre>
 
 1.  <b>-n or -name :</b> Rename file.
 2.  <b>-z or -zip :</b> Zip files or Links
@@ -19,7 +19,7 @@ YT_HELP_MESSAGE = ["""<i>Send links/files along with cmd or reply to cmd to mirr
 12. <b>-c or -category :</b> Gdrive category to Upload, Specific Name (case insensitive)
 13. <b>-ud or -dump :</b> Dump category to Upload, Specific Name (case insensitive) or chat_id or chat_username
 14. <b>-ss or -screenshots :</b> Generate Screenshots for Leeched Files
-15. <b>-t or -thumb :</b> Custom Thumb for Specific Leech
+15. <b>-t or -thumb :</b> Custom Thumb for Specific Leech </blockquote>
 """, """
 ➲ <b><i>Send link along with command line</i></b>:
 <code>/cmd</code> link -s -n new name -opt x:y|x1:y1
@@ -108,9 +108,10 @@ You can set start and end of the links from the bulk with -b start:end or only e
 Check all yt-dlp API options from this <a href='https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/YoutubeDL.py#L184'>FILE</a>
 """]
 
+
 MIRROR_HELP_MESSAGE = ["""<i>Send links/files along with cmd or reply to cmd to mirror or leech on Telegram or GDrive or DDLs with different Engines like RClone, Aria2 or qBit</i>
 
-➲ <b><u>Available Args</u></b>:
+<pre>➲ <b><u>Available Args</u></b>:</pre>
 
 1.  <b>-n or -name :</b> Rename file.
 2.  <b>-z or -zip :</b> Zip files or Links
@@ -130,78 +131,77 @@ MIRROR_HELP_MESSAGE = ["""<i>Send links/files along with cmd or reply to cmd to 
 18. <b>-c or -category :</b> Gdrive category to Upload, Specific Name (case insensitive)
 19. <b>-ud or -dump :</b> Dump category to Upload, Specific Name (case insensitive) or chat_id or chat_username
 20. <b>-ss or -screenshots :</b> Generate Screenshots for Leeched Files
-21. <b>-t or -thumb :</b> Custom Thumb for Specific Leech
+21. <b>-t or -thumb :</b> Custom Thumb for Specific Leech</blockquote>
 """, """
 ➲ <b><i>By along the cmd</i></b>:
-<code>/cmd</code> link -n new name
+<code>/cmd</code> link -n new name\n
 
 ➲ <b><i>By replying to link/file</i></b>:
-<code>/cmd</code> -n new name -z -e -up upload_destination
+<code>/cmd</code> -n new name -z -e -up upload_destination}\n
 
 ➲ <b><i>Custom New Name</i></b>: -n or -name
 <code>/cmd</code> link -n new name
-<b>NOTES</b>: Doesn't work with torrents.
+<b>NOTES</b>: Doesn't work with torrents.\n
 
 ➲ <b><i>Direct Link Authorization</i></b>: -u -p or -user -pass
-<code>/cmd</code> link -u username -p password
+<code>/cmd</code> link -u username -p password\n
 
 ➲ <b><i>Direct link custom headers</i></b>: -h or -headers
-<code>/cmd</code> link -h key: value key1: value1
+<code>/cmd</code> link -h key: value key1: value1\n
 
 ➲ <b><i>Screenshot Generation</b>: -ss or -screenshots
-<code>/cmd</code> link -ss number ,Screenshots for each Video File
+<code>/cmd</code> link -ss number ,Screenshots for each Video File\n
 
 ➲ <b><i>Custom Thumbnail</b>: -t or -thumb
 <code>/cmd</code> link -t tglink|dl_link
 <b>Direct Link:</b> dl_link specifies download link, where it is Image url
-<b>Tg Link:</b> Give Public/Private/Super Link to download Image from Tg
+<b>Tg Link:</b> Give Public/Private/Super Link to download Image from Tg\n
 
 ➲ <b><i>Extract / Zip</i></b>: -uz -z or -zip -unzip or -e -extract
 <code>/cmd</code> link -e password (extract password protected)
 <code>/cmd</code> link -z password (zip password protected)
 <code>/cmd</code> link -z password -e (extract and zip password protected)
 <code>/cmd</code> link -e password -z password (extract password protected and zip password protected)
-<b>NOTES:</b> When both extract and zip added with cmd it will extract first and then zip, so always extract first
+<b>NOTES:</b> When both extract and zip added with cmd it will extract first and then zip, so always extract first\n
 
 ➲ <b><i>qBittorrent selection</i></b>: -s or -select
-<code>/cmd</code> link -s or by replying to file/link
+<code>/cmd</code> link -s or by replying to file/link\n
 
 ➲ <b><i>qBittorrent / Aria2 Seed</i></b>: -d or -seed
 <code>/cmd</code> link -d ratio:seed_time or by replying to file/link
-To specify ratio and seed time add -d ratio:time. Ex: -d 0.7:10 (ratio and time) or -d 0.7 (only ratio) or -d :10 (only time) where time in minutes.
+To specify ratio and seed time add -d ratio:time. Ex: -d 0.7:10 (ratio and time) or -d 0.7 (only ratio) or -d :10 (only time) where time in minutes.\n
 
 ➲ <b><i>Multi links only by replying to first link/file</i></b>: -i
-<code>/cmd</code> -i 10(number of links/files)
+<code>/cmd</code> -i 10(number of links/files)\n
 
 ➲ <b><i>Multi links within same upload directory only by replying to first link/file</i></b>: -m or -sd or -samedir
 <code>/cmd</code> -i 10(number of links/files) -m folder name (multi message)
-<code>/cmd</code> -b -m folder name (bulk-message/file)
+<code>/cmd</code> -b -m folder name (bulk-message/file)\n
 
 ➲ <b><i>Upload Custom Drive:</i></b> -id & -index(Optional)
 <code>/{cmd}</code> -id <code>drive_folder_link</code> or <code>drive_id</code> -index <code>https://example.com/0:</code>
-Here, drive_id must be folder id or folder link and index must be url else it will not accept.
+Here, drive_id must be folder id or folder link and index must be url else it will not accept.\n
 
 ➲ <b><i>Custom Category Select:</i></b> -c or -category
 <code>/{cmd}</code> -c <code>category_name</code>
 This works for both Bot Categories as well as UserTDs (if enabled)
-You can also select Drive Upload from Buttons if having more than 1 and this arg not specified
+You can also select Drive Upload from Buttons if having more than 1 and this arg not specified\n
 
 ➲ <b><i>Custom Dump Select:</i></b> -ud or -dump
 <code>/{cmd}</code> -ud <code>dump_name</code> or <code>@username</code> or <code>-100xxxxxx chat_id</code> or all
 You can also select Dump Chat from Buttons if having more than 1 and this arg not specified
 You -ud all for Uploading in all Dump Chats of yours
-Make Sure Bot is already Admin else it will not accept.
+Make Sure Bot is already Admin else it will not accept.\n
 
 ➲ <b><i>Custom Upload</i></b>: -up or -upload
 <code>/cmd</code> link -up <code>rcl</code> (To select rclone config, remote and path)
 <code>/cmd</code> link -up <code>ddl</code>
-You can directly add the upload path: -up remote:dir/subdir
-
+You can directly add the upload path: -up remote:dir/subdir\n
 If DEFAULT_UPLOAD is `rc` then you can pass up: `gd` to upload using gdrive tools to GDRIVE_ID.
 If DEFAULT_UPLOAD is `gd` then you can pass up: `rc` to upload to RCLONE_PATH.
 If DEFAULT_UPLOAD is `ddl` then you can pass up: `rc` or `gd` to upload to RCLONE_PATH or GDRIVE_ID
 If you want to add path manually from your config (uploaded from usetting) add <code>mrcc:</code> before the path without space
-<code>/cmd</code> link -up <code>mrcc:</code>main:dump
+<code>/cmd</code> link -up <code>mrcc:</code>main:dump.\n
 
 ➲ <b><i>RClone Flags</i></b>: -rcf
 <code>/cmd</code> link|path|rcl -up path|rcl -rcf --buffer-size:8M|--drive-starred-only|key|key:value
@@ -318,7 +318,7 @@ But you can always use -c or -category with to select category before download s
 <b>NOTE:</b> drive_id must be folder id or folder link and index must be url else it will not accept.
 """
 
-help_string = [f'''⌬ <b><i>Basic Commands!</i></b>
+help_string = [f'''⌬ <b><i>Bᴀsɪᴄ Cᴏᴍᴍᴀɴᴅs!</i></b>
 
 <b>Use Mirror commands to download your link/file/rcl</b>
 ┠ /{BotCommands.MirrorCommand[0]} or /{BotCommands.MirrorCommand[1]}: Download via file/url/media to Upload to Cloud Drive.
@@ -344,7 +344,7 @@ help_string = [f'''⌬ <b><i>Basic Commands!</i></b>
 <b>Cancel Tasks:</b>
 ┖ /{BotCommands.CancelMirror}: Cancel task by cancel_gid or reply.''',
 
-f'''⌬ <b><i>Users Commands!</i></b>
+f'''⌬ <b><i>Usᴇʀs Cᴏᴍᴍᴀɴᴅs!</i></b>
 
 <b>Bot Settings:</b>
 ┖ /{BotCommands.UserSetCommand[0]} or /{BotCommands.UserSetCommand[1]} [query]: Open User Settings (PM also)
@@ -360,7 +360,7 @@ f'''⌬ <b><i>Users Commands!</i></b>
 <b>RSS Feed:</b>
 ┖ /{BotCommands.RssCommand}: Open RSS Menu (Sub/Unsub/Start/Pause)''',
 
-f'''⌬ <b><i>Owner or Sudos Commands!</i></b>
+f'''⌬ <b><i>Oᴡɴᴇʀ ᴏʀ Sᴜᴅᴏs Cᴏᴍᴍᴀɴᴅs!</i></b>
 
 <b>Bot Settings:</b>
 ┠ /{BotCommands.BotSetCommand[0]} or /{BotCommands.BotSetCommand[1]} [query]: Open Bot Settings (Only Owner & Sudo).
@@ -400,11 +400,11 @@ f'''⌬ <b><i>Owner or Sudos Commands!</i></b>
 
 <b>Extras:</b>
 ┠ /{BotCommands.AddImageCommand} [url/photo]: Add Images in Bot
-┖ /{BotCommands.ImagesCommand}: Generate grid of Stored Images.''',
+┖ /{BotCommands.ImagesCommand}: Generate grid of Stored Images.</blockquote>''',
 
-f'''⌬ <b><i>Miscellaneous Commands!</i></b>
+f'''⌬ <b><i>Mɪsᴄᴇʟʟᴀɴᴇᴏᴜs Cᴏᴍᴍᴀɴᴅs!</i></b>
 
-<b>Extras:</b>
+<blockquote expandable><b>Extras:</b>
 ┠ /{BotCommands.SpeedCommand[0]} or /{BotCommands.SpeedCommand[1]}: Check Speed in VPS/Server.
 ┖ /{BotCommands.MediaInfoCommand[0]} or /{BotCommands.MediaInfoCommand[1]} [url/media]: Generate MediaInfo of Media or DL Urls
 

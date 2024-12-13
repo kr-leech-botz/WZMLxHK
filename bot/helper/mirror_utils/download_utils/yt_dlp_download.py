@@ -115,7 +115,7 @@ class YoutubeDLHelper:
                 self.__eta = d.get('eta', '-') or '-'
             try:
                 self.__progress = (self.__downloaded_bytes / self.__size) * 100
-            except:
+            except exception :
                 pass
 
     async def __onDownloadStart(self, from_queue=False):

@@ -2,7 +2,7 @@
 from asyncio import sleep
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from pyrogram.filters import command, regex
-
+import asyncio
 from bot import download_dict, bot, bot_name, download_dict_lock, OWNER_ID, user_data
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.filters import CustomFilters
@@ -12,6 +12,9 @@ from bot.helper.telegram_helper import button_build
 
 
 async def cancel_mirror(_, message):
+    sticker_message = await message.reply_sticker("CAACAgIAAxkBAAEtGw5mubhIAX-eGsjtaa5J8XGIUzKrawACzQ8AArmr6Upe0YrDKbm3ZzUE")
+    await asyncio.sleep(1) # set Custom time
+    await sticker_message.delete()
     user_id = message.from_user.id
     msg = message.text.split('_', maxsplit=1)
     if len(msg) > 1:

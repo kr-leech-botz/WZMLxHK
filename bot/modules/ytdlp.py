@@ -7,6 +7,7 @@ from aiofiles.os import path as aiopath
 from yt_dlp import YoutubeDL
 from functools import partial
 from time import time
+import asyncio
 
 from bot import DOWNLOAD_DIR, bot, categories_dict, config_dict, user_data, LOGGER
 from bot.helper.ext_utils.task_manager import task_utils
@@ -21,7 +22,7 @@ from bot.helper.telegram_helper.filters import CustomFilters
 from bot.helper.listeners.tasks_listener import MirrorLeechListener
 from bot.helper.ext_utils.help_messages import YT_HELP_MESSAGE
 from bot.helper.ext_utils.bulk_links import extract_bulk_links
-
+from bot.helper.nordbotz_utils.react_nordbotz import send_react
 
 @new_task
 async def select_format(_, query, obj):
@@ -215,7 +216,7 @@ class YtSelection:
         buttons.ibutton('Back', 'ytq aq back')
         buttons.ibutton('Cancel', 'ytq aq cancel')
         subbuttons = buttons.build_menu(5)
-        msg = f'Choose Audio{i} Qaulity:\n0 is best and 10 is worst\nTimeout: {get_readable_time(self.__timeout-(time()-self.__time))}'
+        msg = f'Choose Audio{i} Quality:\n0 is best and 10 is worst\nTimeout: {get_readable_time(self.__timeout-(time()-self.__time))}'
         await editMessage(self.__reply_to, msg, subbuttons)
 
 
@@ -241,6 +242,10 @@ async def _mdisk(link, name):
 
 @new_task
 async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
+    sticker_message = await message.reply_sticker("CAACAgUAAxkBAAEtGvVmubOKcXBCOqf3scvXaZDqF9TzJAACAQADwSQxMUzllWoqwNZvNQQ")
+    await asyncio.sleep(1)
+    await sticker_message.delete()
+    await send_react(message)
     text = message.text.split('\n')
     input_list = text[0].split(' ')
     qual = ''
@@ -287,6 +292,7 @@ async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
     bulk_end    = 0
     thumb       = args['-t'] or args['-thumb']
     sshots      = int(ss) if (ss := (args['-ss'] or args['-screenshots'])).isdigit() else 0
+    
 
     if not isinstance(isBulk, bool):
         dargs = isBulk.split(':')
@@ -294,7 +300,7 @@ async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
         if len(dargs) == 2:
             bulk_end = dargs[1] or None
         isBulk = True
-
+        
     if drive_id and is_gdrive_link(drive_id):
         drive_id = GoogleDriveHelper.getIdFromUrl(drive_id)
 
@@ -427,9 +433,9 @@ async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
             return
         elif up not in ['rcl', 'gd', 'ddl']:
             if up.startswith('mrcc:'):
-                config_path = f'wcl/{message.from_user.id}.conf'
+                config_path = f'rclone/{message.from_user.id}.conf'
             else:
-                config_path = 'wcl.conf'
+                config_path = 'rclone.conf'
             if not await aiopath.exists(config_path):
                 await sendMessage(message, f'Rclone Config: {config_path} not Exists!')
                 await delete_links(message)
@@ -464,7 +470,6 @@ async def _ytdl(client, message, isLeech=False, sameDir=None, bulk=[]):
             return
 
     listener = MirrorLeechListener(message, compress, isLeech=isLeech, tag=tag, sameDir=sameDir, rcFlags=rcf, upPath=up, drive_id=drive_id, index_link=index_link, isYtdlp=True, source_url=link, leech_utils={'screenshots': sshots, 'thumb': thumb})
-
 
     if 'mdisk.me' in link:
         name, link = await _mdisk(link, name)

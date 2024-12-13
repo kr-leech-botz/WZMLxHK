@@ -15,9 +15,8 @@ from langcodes import Language
 from bot import bot_cache, LOGGER, MAX_SPLIT_SIZE, config_dict, user_data
 from bot.modules.mediainfo import parseinfo
 from bot.helper.ext_utils.bot_utils import cmd_exec, sync_to_async, get_readable_file_size, get_readable_time
-from bot.helper.ext_utils.fs_utils import ARCH_EXT, get_mime_type
+from bot.helper.nordbotz_utils.metadata import ARCH_EXT, get_mime_type, edit_metadata
 from bot.helper.ext_utils.telegraph_helper import telegraph
-
 
 async def is_multi_streams(path):
     try:
@@ -248,7 +247,7 @@ async def format_filename(file_, user_id, dirpath=None, isMirror=False):
     remname = config_dict[f'{ctag}_FILENAME_REMNAME'] if (val:=user_dict.get(f'{ftag}remname', '')) == '' else val
     suffix = config_dict[f'{ctag}_FILENAME_SUFFIX'] if (val:=user_dict.get(f'{ftag}suffix', '')) == '' else val
     lcaption = config_dict['LEECH_FILENAME_CAPTION'] if (val:=user_dict.get('lcaption', '')) == '' else val
- 
+        
     prefile_ = file_
     file_ = re_sub(r'www\S+', '', file_)
         

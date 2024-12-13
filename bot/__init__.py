@@ -1,9 +1,11 @@
+
 #!/usr/bin/env python3
 from tzlocal import get_localzone
 from pytz import timezone
 from datetime import datetime
+from inspect import signature
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from pyrogram import Client as tgClient, enums
+from pyrogram import Client as tgClient, enums, utils as pyroutils
 from pymongo import MongoClient
 from asyncio import Lock
 from dotenv import load_dotenv, dotenv_values
@@ -13,21 +15,27 @@ from subprocess import Popen, run as srun, check_output
 from os import remove as osremove, path as ospath, environ, getcwd
 from aria2p import API as ariaAPI, Client as ariaClient
 from qbittorrentapi import Client as qbClient
-from faulthandler import enable as faulthandler_enable
 from socket import setdefaulttimeout
-from logging import getLogger, Formatter, FileHandler, StreamHandler, INFO, basicConfig, error as log_error, info as log_info, warning as log_warning
+from logging import getLogger, Formatter, FileHandler, StreamHandler, INFO, ERROR, basicConfig, error as log_error, info as log_info, warning as log_warning
 from uvloop import install
 
-faulthandler_enable()
+#from faulthandler import enable as faulthandler_enable
+#faulthandler_enable()
 install()
 setdefaulttimeout(600)
 
+pyroutils.MIN_CHAT_ID = -999999999999
+pyroutils.MIN_CHANNEL_ID = -100999999999999
 botStartTime = time()
 
 basicConfig(format="[%(asctime)s] [%(levelname)s] - %(message)s", #  [%(filename)s:%(lineno)d]
             datefmt="%d-%b-%y %I:%M:%S %p",
             handlers=[FileHandler('log.txt'), StreamHandler()],
             level=INFO)
+
+getLogger("pyrogram").setLevel(ERROR)
+getLogger("aiohttp").setLevel(ERROR)
+getLogger("httpx").setLevel(ERROR)
 
 LOGGER = getLogger(__name__)
 
@@ -132,11 +140,11 @@ TELEGRAM_HASH = environ.get('TELEGRAM_HASH', '')
 if len(TELEGRAM_HASH) == 0:
     log_error("TELEGRAM_HASH variable is missing! Exiting now")
     exit(1)
-    
+
 TIMEZONE = environ.get('TIMEZONE', '')
 if len(TIMEZONE) == 0:
     TIMEZONE = 'Asia/Kolkata'
-    
+
 def changetz(*args):
     return datetime.now(timezone(TIMEZONE)).timetuple()
 Formatter.converter = changetz
@@ -179,7 +187,7 @@ if len(SUDO_USERS) != 0:
     aid = SUDO_USERS.split()
     for id_ in aid:
         user_data[int(id_.strip())] = {'is_sudo': True}
-        
+
 BLACKLIST_USERS = environ.get('BLACKLIST_USERS', '')
 if len(BLACKLIST_USERS) != 0:
     for id_ in BLACKLIST_USERS.split():
@@ -198,35 +206,42 @@ LINKS_LOG_ID = '' if len(LINKS_LOG_ID) == 0 else int(LINKS_LOG_ID)
 MIRROR_LOG_ID = environ.get('MIRROR_LOG_ID', '')
 if len(MIRROR_LOG_ID) == 0:
     MIRROR_LOG_ID = ''
-    
+
 LEECH_LOG_ID = environ.get('LEECH_LOG_ID', '')
 if len(LEECH_LOG_ID) == 0:
     LEECH_LOG_ID = ''
-    
+
 EXCEP_CHATS = environ.get('EXCEP_CHATS', '')
 if len(EXCEP_CHATS) == 0:
     EXCEP_CHATS = ''
 
+def wztgClient(*args, **kwargs):
+    if 'max_concurrent_transmissions' in signature(tgClient.__init__).parameters:
+        kwargs['max_concurrent_transmissions'] = 1000
+    return tgClient(*args, **kwargs)
+            
 IS_PREMIUM_USER = False
 user = ''
 USER_SESSION_STRING = environ.get('USER_SESSION_STRING', '')
 if len(USER_SESSION_STRING) != 0:
     log_info("Creating client from USER_SESSION_STRING")
     try:
-        user = tgClient('user', TELEGRAM_API, TELEGRAM_HASH, session_string=USER_SESSION_STRING,
+        user = wztgClient('user', TELEGRAM_API, TELEGRAM_HASH, session_string=USER_SESSION_STRING,
                         parse_mode=enums.ParseMode.HTML, no_updates=True).start()
         IS_PREMIUM_USER = user.me.is_premium
     except Exception as e:
         log_error(f"Failed making client from USER_SESSION_STRING : {e}")
         user = ''
-
+                
 MEGA_EMAIL = environ.get('MEGA_EMAIL', '')
 MEGA_PASSWORD = environ.get('MEGA_PASSWORD', '')
 if len(MEGA_EMAIL) == 0 or len(MEGA_PASSWORD) == 0:
     log_warning('MEGA Credentials not provided!')
     MEGA_EMAIL = ''
     MEGA_PASSWORD = ''
-    
+
+METADATA = environ.get('METADATA', '')
+
 GDTOT_CRYPT = environ.get('GDTOT_CRYPT', '')
 if len(GDTOT_CRYPT) == 0:
     GDTOT_CRYPT = ''
@@ -238,7 +253,7 @@ if len(JIODRIVE_TOKEN) == 0:
 REAL_DEBRID_API = environ.get('REAL_DEBRID_API', '')
 if len(REAL_DEBRID_API) == 0:
     REAL_DEBRID_API = ''
-    
+
 DEBRID_LINK_API = environ.get('DEBRID_LINK_API', '')
 if len(DEBRID_LINK_API) == 0:
     DEBRID_LINK_API = ''
@@ -270,7 +285,7 @@ if len(LEECH_FILENAME_CAPTION) == 0:
 LEECH_FILENAME_REMNAME = environ.get('LEECH_FILENAME_REMNAME', '')
 if len(LEECH_FILENAME_REMNAME) == 0:
     LEECH_FILENAME_REMNAME = ''
-    
+
 MIRROR_FILENAME_PREFIX = environ.get('MIRROR_FILENAME_PREFIX', '')
 if len(MIRROR_FILENAME_PREFIX) == 0:
     MIRROR_FILENAME_PREFIX = ''
@@ -399,7 +414,7 @@ if len(UPSTREAM_REPO) == 0:
 UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
 if len(UPSTREAM_BRANCH) == 0:
     UPSTREAM_BRANCH = 'master'
-    
+
 UPGRADE_PACKAGES = environ.get('UPGRADE_PACKAGES', '')
 UPGRADE_PACKAGES = UPGRADE_PACKAGES.lower() == 'true'
 
@@ -455,7 +470,7 @@ PLAYLIST_LIMIT = '' if len(PLAYLIST_LIMIT) == 0 else int(PLAYLIST_LIMIT)
 FSUB_IDS = environ.get('FSUB_IDS', '')
 if len(FSUB_IDS) == 0:
     FSUB_IDS = ''
-    
+
 LINKS_LOG_ID = environ.get('LINKS_LOG_ID', '')
 LINKS_LOG_ID = '' if len(LINKS_LOG_ID) == 0 else int(LINKS_LOG_ID)
 
@@ -504,7 +519,7 @@ if len(AUTHOR_URL) == 0:
 TITLE_NAME = environ.get('TITLE_NAME', '')
 if len(TITLE_NAME) == 0:
     TITLE_NAME = 'WZ-M/L-X'
-    
+
 COVER_IMAGE = environ.get('COVER_IMAGE', '')
 if len(COVER_IMAGE) == 0:
     COVER_IMAGE = 'https://graph.org/file/60f9f8bcb97d27f76f5c0.jpg'
@@ -524,7 +539,7 @@ SET_COMMANDS = SET_COMMANDS.lower() == 'true'
 
 CLEAN_LOG_MSG = environ.get('CLEAN_LOG_MSG', '')
 CLEAN_LOG_MSG = CLEAN_LOG_MSG.lower() == 'true'
-    
+
 SHOW_EXTRA_CMDS = environ.get('SHOW_EXTRA_CMDS', '')
 SHOW_EXTRA_CMDS = SHOW_EXTRA_CMDS.lower() == 'true'
 
@@ -599,6 +614,7 @@ config_dict = {'ANIME_TEMPLATE': ANIME_TEMPLATE,
                'CAP_FONT': CAP_FONT,
                'CMD_SUFFIX': CMD_SUFFIX,
                'DATABASE_URL': DATABASE_URL,
+               'METADATA': METADATA,
                'REAL_DEBRID_API': REAL_DEBRID_API,
                'DEBRID_LINK_API': DEBRID_LINK_API,
                'FILELION_API': FILELION_API,
@@ -818,7 +834,7 @@ else:
     qb_client.app_set_preferences(qb_opt)
 
 log_info("Creating client from BOT_TOKEN")
-bot = tgClient('bot', TELEGRAM_API, TELEGRAM_HASH, bot_token=BOT_TOKEN, workers=1000,
+bot = wztgClient('bot', TELEGRAM_API, TELEGRAM_HASH, bot_token=BOT_TOKEN, workers=1000,
                parse_mode=enums.ParseMode.HTML).start()
 bot_loop = bot.loop
 bot_name = bot.me.username

@@ -8,7 +8,7 @@ from asyncio import sleep, wrap_future
 from aiofiles import open as aiopen
 from aiofiles.os import path as aiopath
 from cloudscraper import create_scraper
-
+import asyncio
 from bot import bot, DOWNLOAD_DIR, LOGGER, config_dict, bot_name, categories_dict, user_data
 from bot.helper.mirror_utils.download_utils.direct_downloader import add_direct_download
 from bot.helper.ext_utils.bot_utils import is_url, is_magnet, is_mega_link, is_gdrive_link, get_content_type, new_task, sync_to_async, is_rclone_path, is_telegram_link, arg_parser, fetch_user_tds, fetch_user_dumps, get_stats
@@ -31,9 +31,13 @@ from bot.helper.listeners.tasks_listener import MirrorLeechListener
 from bot.helper.ext_utils.help_messages import MIRROR_HELP_MESSAGE, CLONE_HELP_MESSAGE, YT_HELP_MESSAGE, help_string
 from bot.helper.ext_utils.bulk_links import extract_bulk_links
 from bot.modules.gen_pyro_sess import get_decrypt_key
-
+from bot.helper.nordbotz_utils.react_nordbotz import send_react
 @new_task
 async def _mirror_leech(client, message, isQbit=False, isLeech=False, sameDir=None, bulk=[]):
+    sticker_message = await message.reply_sticker("CAACAgUAAxkBAAEtGvVmubOKcXBCOqf3scvXaZDqF9TzJAACAQADwSQxMUzllWoqwNZvNQQ")
+    await asyncio.sleep(1)
+    await sticker_message.delete()
+    await send_react(message)
     text = message.text.split('\n')
     input_list = text[0].split(' ')
 
