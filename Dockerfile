@@ -1,11 +1,11 @@
-FROM mysterysd/wzmlx:heroku
+FROM python:3.12
+RUN apt update && apt upgrade -y
+RUN apt install git -y
+COPY requirements.txt /requirements.txt
 
-WORKDIR /usr/src/app
-RUN chmod 777 /usr/src/app
-
-RUN pip install pytz
+RUN cd /
+RUN pip install -U pip && pip install -U -r requirements.txt
+WORKDIR /app
 
 COPY . .
-RUN pip3 install --no-cache-dir -r requirements.txt
-
 CMD ["bash", "start.sh"]
