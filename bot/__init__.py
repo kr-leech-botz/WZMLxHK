@@ -784,7 +784,7 @@ def get_client():
                             "max_retries": 10,
                             "pool_block": True,
                 },
-
+    )
 
 def aria2c_init():
     try:
