@@ -3,7 +3,7 @@ class WZMLStyle:
     # ----------------------
     # async def start(client, message) ---> __main__.py
     ST_BN1_NAME = 'Group'
-    ST_BN1_URL = 'https://t.me/free_leech_group'
+    ST_BN1_URL = 'https://t.me/Free_4GB_Leech_Group'
     ST_BN2_NAME = 'Updates'
     ST_BN2_URL = 'https://t.me/Srilinks4k_In'
     ST_MSG = '''<i>This bot can mirror all your links|files|torrents to Google Drive or any rclone cloud or to telegram or to ddl servers.</i>
