@@ -27,11 +27,11 @@ markdown
 natsort
 pillow
 psutil
+pytz
 pybase64
 pycountry
 pymongo
-pyrofork==2.3.52
-pytz
+pyrofork
 python-dotenv
 python-magic
 qbittorrent-api
@@ -42,4 +42,5 @@ tenacity
 tgcrypto
 uvloop
 xattr
-yt-dlp
+yt-dlp==2023.10.07
+cloudscraper

@@ -1,4 +1,12 @@
-# **HEROKU DEPLOY GUIDE**
+<div align=center>
+
+## Thiru-ML is Now Heroku Deployable 
+
+## Deploy On Heroku
+
+[![Deploy on Heroku](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/ThiruXD/Thiru-ML)
+
+</div>
 
 ---
 
@@ -8,7 +16,7 @@
 > Make sure git is Installed in your system or quick run `apt-get install git pip curl -y`
 
 ```shell
-git clone https://gitlab.com/mysterysd.sd/WZML-X && cd WZML-X 
+git clone https://github.com/ThiruXD/Thiru-ML && cd Thiru-ML 
 ```
 
 **Step 2 :** Now Install Heroku in your Sytem or checkout Official Heroku Deploy Docs, or Download via `apt-get` or `npm`
@@ -57,8 +65,8 @@ heroku create --region us --stack container APP_NAME
 **To Be Noted**: Copy the `BASE_URL` after the App is Created and Put the Value in `BASE_URL` when editing `config.env`
 
 **Notes:**
-- `--region eu` for Europe Server.
 - `--region us` for United States Server.
+- `--region eu` for Europe Server.
 - `APP_NAME` should be replaced with your unique app name _(Optional)_. If not given it generates a random name.
 - `--stack container` for setting stack to container for Dockerfile.
 - `--buildpack heroku/python` for using build slug for repo deploy and build.
@@ -76,11 +84,11 @@ nano config.env
   TELEGRAM_API = ""
   TELEGRAM_HASH = ""
   OWNER_ID = ""
-  UPSTREAM_REPO = ""
-  UPSTREAM_BRANCH = "hk_wzmlx"
   DATABASE_URL = ""
   BASE_URL = ""
-  TORRENT_TIMEOUT = "0"
+  SET_COMMANDS = "True"
+  UPSTREAM_REPO = "https://github.com/ThiruXD/Thiru-ML"
+  UPSTREAM_BRANCH = "hk_thiruml"
   ```
 - After Setup Exit from Editor via `CTRL + X`, followed via `y` and `Enter`...
 
@@ -118,12 +126,10 @@ heroku logs -a APP_NAME
 
 ## ***Variables Description:***
 
-- `UPSTREAM_REPO`: GitLab repository URL, if your repo is private add `https://<deploy_token>:<password>@gitlab.com/<your_username>/<repository_name>
-` format. `Str`.
-  - **NOTE**: Don't forget to remove '<' and '>'. To generate gitlab Deploy Token. Follow [This](https://docs.gitlab.com/ee/user/project/deploy_tokens/#create-a-deploy-token)
-              - Any change in docker you need to deploy/build again with updated repo to take effect. 
+- `UPSTREAM_REPO`: GitHub repository URL, if your repo is private add `https://username:{githubtoken}@github.com/{username}/{reponame}`. `Str`
+- Any change in docker you need to deploy/build again with updated repo to take effect. 
               - **No Need to delete .gitignore file or any File**
-- `UPSTREAM_BRANCH`: Upstream branch for update. Default is `hk_wzmlx`. `Str`
+- `UPSTREAM_BRANCH`: Upstream branch for update. Default is `hk_thiruml`. `Str`
 - `BOT_TOKEN`: Telegram Bot Token that you got from [BotFather](https://t.me/BotFather). `Str`
 - `OWNER_ID`: Telegram User ID (not username) of the Owner of the bot. `Int`
 - `TELEGRAM_API`: This is to authenticate your Telegram account for downloading Telegram files. You can get this from <https://my.telegram.org>. `Int`
@@ -137,6 +143,6 @@ heroku logs -a APP_NAME
 
 ## ***Branch Specifications:***
 
-- All files to be Uploaded in `main` Branch and set Upstream as `hk_wzmlx` Branch
+- All files to be Uploaded in `main` Branch and set Upstream as `hk_thiruml` Branch
 
 ---
