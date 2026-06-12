@@ -38,14 +38,14 @@ default_values = {'AUTO_DELETE_MESSAGE_DURATION': 30,
                   'RSS_DELAY': 600,
                   'STATUS_UPDATE_INTERVAL': 10,
                   'SEARCH_LIMIT': 0,
-                  'UPSTREAM_BRANCH': 'master',
+                  'UPSTREAM_BRANCH': 'hk_tamilml',
                   'BOT_THEME': 'minimal',
                   'BOT_LANG': 'en',
                   'IMG_PAGE': 1,
-                  'AUTHOR_NAME': 'WZML-X',
-                  'AUTHOR_URL': 'https://t.me/WZML_X',
-                  'TITLE_NAME': 'WZ Mirror/Leech X',
-                  'GD_INFO': 'Uploaded by WZML-X',
+                  'AUTHOR_NAME': 'Thiru Empire',
+                  'AUTHOR_URL': 'https://telegram.me/KR_BotX',
+                  'TITLE_NAME': 'Leech Bot',
+                  'GD_INFO': 'Uploaded by Leech Bot',
                   }
 bool_vars = ['AS_DOCUMENT', 'BOT_PM', 'STOP_DUPLICATE', 'SET_COMMANDS', 'SAVE_MSG', 'SHOW_MEDIAINFO', 'SOURCE_LINK', 'SAFE_MODE', 'SHOW_EXTRA_CMDS',
              'IS_TEAM_DRIVE', 'USE_SERVICE_ACCOUNTS', 'WEB_PINCODE', 'EQUAL_SPLITS', 'DISABLE_DRIVE_LINK', 'DELETE_LINKS', 'CLEAN_LOG_MSG', 'USER_TD_MODE', 
@@ -350,14 +350,14 @@ async def load_config():
 
     UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
     if len(UPSTREAM_REPO) == 0:
-        UPSTREAM_REPO = ''
+        UPSTREAM_REPO = 'https://github.com/ThiruXD/Tamil-ML'
         
     UPGRADE_PACKAGES = environ.get('UPGRADE_PACKAGES', '')
     UPGRADE_PACKAGES = UPGRADE_PACKAGES.lower() == 'true'
 
     UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
     if len(UPSTREAM_BRANCH) == 0:
-        UPSTREAM_BRANCH = 'master'
+        UPSTREAM_BRANCH = 'hk_tamilml'
 
     STORAGE_THRESHOLD = environ.get('STORAGE_THRESHOLD', '')
     STORAGE_THRESHOLD = '' if len(
@@ -442,23 +442,23 @@ async def load_config():
 
     AUTHOR_NAME = environ.get('AUTHOR_NAME', '')
     if len(AUTHOR_NAME) == 0:
-        AUTHOR_NAME = 'WZML-X'
+        AUTHOR_NAME = 'Thiru Empire'
 
     AUTHOR_URL = environ.get('AUTHOR_URL', '')
     if len(AUTHOR_URL) == 0:
-        AUTHOR_URL = 'https://t.me/WZML_X'
+        AUTHOR_URL = 'https://telegram.me/KR_BotX'
 
     TITLE_NAME = environ.get('TITLE_NAME', '')
     if len(TITLE_NAME) == 0:
-        TITLE_NAME = 'WeebZone-X'
+        TITLE_NAME = 'Leech Bot'
         
     COVER_IMAGE = environ.get('COVER_IMAGE', '')
     if len(COVER_IMAGE) == 0:
-        COVER_IMAGE = 'https://graph.org/file/60f9f8bcb97d27f76f5c0.jpg'
+        COVER_IMAGE = 'https://graph.org/file/0ff9d5e94a070fe4154c0.jpg'
 
     GD_INFO = environ.get('GD_INFO', '')
     if len(GD_INFO) == 0:
-        GD_INFO = 'Uploaded by WZML-X'
+        GD_INFO = 'Uploaded by Leech Bot'
 
     SAVE_MSG = environ.get('SAVE_MSG', '')
     SAVE_MSG = SAVE_MSG.lower() == 'true'
@@ -942,7 +942,7 @@ async def update_private_file(_, message, pre_message):
             await (await create_subprocess_exec("touch", ".netrc")).wait()
             await (await create_subprocess_exec("chmod", "600", ".netrc")).wait()
             await (await create_subprocess_exec("cp", ".netrc", "/root/.netrc")).wait()
-        elif file_name.startswith('wzml_'):
+        elif file_name.startswith('tamilml_'):
             path = f"bot/helper/themes/{file_name.rsplit('.py', 1)[0]}.py"
             if await aiopath.isfile(path):
                 await remove(path)
@@ -962,7 +962,7 @@ async def update_private_file(_, message, pre_message):
     elif doc := message.document:
         file_name = doc.file_name
         path = file_name
-        if file_name.startswith('wzml_') and file_name.endswith('.py'):
+        if file_name.startswith('tamilml_') and file_name.endswith('.py'):
             path = f'bot/helper/themes/{file_name}'
         await message.download(file_name=f'{getcwd()}/{path}')
         if file_name == 'accounts.zip':

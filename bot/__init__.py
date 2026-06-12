@@ -66,14 +66,20 @@ status_reply_dict = {}
 download_dict = {}
 rss_dict = {}
 
-BOT_TOKEN = environ.get('BOT_TOKEN', '')
+
+
+# Created By ThiruXD 
+AUTO_LEECH_GRP_ID = int(environ.get('AUTO_LEECH_GRP_ID',0))
+METADATA = environ.get('METADATA',)
+
+BOT_TOKEN = environ.get('BOT_TOKEN',)
 if len(BOT_TOKEN) == 0:
     log_error("BOT_TOKEN variable is missing! Exiting now")
     exit(1)
 
 bot_id = BOT_TOKEN.split(':', 1)[0]
 
-DATABASE_URL = environ.get('DATABASE_URL', '')
+DATABASE_URL = environ.get('DATABASE_URL',)
 if len(DATABASE_URL) == 0:
     DATABASE_URL = ''
 
@@ -114,21 +120,21 @@ if DATABASE_URL:
 else:
     config_dict = {}
 
-OWNER_ID = environ.get('OWNER_ID', '')
+OWNER_ID = environ.get('OWNER_ID', '5741918628')
 if len(OWNER_ID) == 0:
     log_error("OWNER_ID variable is missing! Exiting now")
     exit(1)
 else:
     OWNER_ID = int(OWNER_ID)
 
-TELEGRAM_API = environ.get('TELEGRAM_API', '')
+TELEGRAM_API = environ.get('TELEGRAM_API', '21518327')
 if len(TELEGRAM_API) == 0:
     log_error("TELEGRAM_API variable is missing! Exiting now")
     exit(1)
 else:
     TELEGRAM_API = int(TELEGRAM_API)
 
-TELEGRAM_HASH = environ.get('TELEGRAM_HASH', '')
+TELEGRAM_HASH = environ.get('TELEGRAM_HASH', 'e72f588b3e4763f01eecfc3c4aa7e8ac')
 if len(TELEGRAM_HASH) == 0:
     log_error("TELEGRAM_HASH variable is missing! Exiting now")
     exit(1)
@@ -209,7 +215,7 @@ if len(EXCEP_CHATS) == 0:
 
 IS_PREMIUM_USER = False
 user = ''
-USER_SESSION_STRING = environ.get('USER_SESSION_STRING', '')
+USER_SESSION_STRING = environ.get('USER_SESSION_STRING', 'BQFIV_cAcJUx0vqIKIOdbG9AK8nyrBXL-q9xemuBEw0V5vzFx4JwhzNc5589kDxUvtUT59pR479QcPx6EtpoWZNgtHHBo4RDeKAyehQo9MyUi0QnlMM2ElVaaEAyQcwF8SzKNyPpXoWlKh7ZRQWQzQvqAbi4yKNrsquJXqaUWbV9cD4XaOPVm5t0PpeMwtotWZNwpakiKjDJqpUXejDU0DyqaP5riC9iVQkTnOXC6Pk7h13NrakH4ZFO5iBok5hYxy3w0fMc3YKM561X4bGskSUG61RFZD6slgyMvc8-8lw_BHI7WzbHXFMI9RdTaaAx28YboVBJ60MXNl8hQBTNOqcOND6R4wAAAAFWPrmkAA')
 if len(USER_SESSION_STRING) != 0:
     log_info("Creating client from USER_SESSION_STRING")
     try:
@@ -384,21 +390,21 @@ EQUAL_SPLITS = EQUAL_SPLITS.lower() == 'true'
 MEDIA_GROUP = environ.get('MEDIA_GROUP', '')
 MEDIA_GROUP = MEDIA_GROUP.lower() == 'true'
 
-BASE_URL_PORT = environ.get('BASE_URL_PORT', '')
+BASE_URL_PORT = environ.get('BASE_URL_PORT', '7894')
 BASE_URL_PORT = 80 if len(BASE_URL_PORT) == 0 else int(BASE_URL_PORT)
 
-BASE_URL = environ.get('BASE_URL', '').rstrip("/")
+BASE_URL = environ.get('BASE_URL', 'https://leecbotmaster3-2d63bb28714e.herokuapp.com/').rstrip("/")
 if len(BASE_URL) == 0:
     log_warning('BASE_URL not provided!')
     BASE_URL = ''
 
 UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
 if len(UPSTREAM_REPO) == 0:
-    UPSTREAM_REPO = ''
+    UPSTREAM_REPO = 'https://github.com/botmaker00/LeechadvL'
 
 UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
 if len(UPSTREAM_BRANCH) == 0:
-    UPSTREAM_BRANCH = 'master'
+    UPSTREAM_BRANCH = 'hk_tamilml'
     
 UPGRADE_PACKAGES = environ.get('UPGRADE_PACKAGES', '')
 UPGRADE_PACKAGES = UPGRADE_PACKAGES.lower() == 'true'
@@ -495,23 +501,23 @@ IMG_PAGE = int(IMG_PAGE) if IMG_PAGE.isdigit() else ''
 
 AUTHOR_NAME = environ.get('AUTHOR_NAME', '')
 if len(AUTHOR_NAME) == 0:
-    AUTHOR_NAME = 'WZML-X'
+    AUTHOR_NAME = 'Thiru Empire'
 
 AUTHOR_URL = environ.get('AUTHOR_URL', '')
 if len(AUTHOR_URL) == 0:
-    AUTHOR_URL = 'https://t.me/WZML_X'
+    AUTHOR_URL = 'https://telegram.me/KR_BotX'
 
 TITLE_NAME = environ.get('TITLE_NAME', '')
 if len(TITLE_NAME) == 0:
-    TITLE_NAME = 'WZ-M/L-X'
+    TITLE_NAME = 'Leech Bot'
     
 COVER_IMAGE = environ.get('COVER_IMAGE', '')
 if len(COVER_IMAGE) == 0:
-    COVER_IMAGE = 'https://graph.org/file/60f9f8bcb97d27f76f5c0.jpg'
+    COVER_IMAGE = 'https://graph.org/file/0ff9d5e94a070fe4154c0.jpg'
 
 GD_INFO = environ.get('GD_INFO', '')
 if len(GD_INFO) == 0:
-    GD_INFO = 'Uploaded by WZML-X'
+    GD_INFO = 'Uploaded by Leech Bot'
 
 SAVE_MSG = environ.get('SAVE_MSG', '')
 SAVE_MSG = SAVE_MSG.lower() == 'true'
@@ -697,7 +703,9 @@ config_dict = {'ANIME_TEMPLATE': ANIME_TEMPLATE,
                'USER_TD_SA': USER_TD_SA,
                'USE_SERVICE_ACCOUNTS': USE_SERVICE_ACCOUNTS,
                'WEB_PINCODE': WEB_PINCODE,
-               'YT_DLP_OPTIONS': YT_DLP_OPTIONS}
+               'YT_DLP_OPTIONS': YT_DLP_OPTIONS,
+               'AUTO_LEECH_GRP_ID': AUTO_LEECH_GRP_ID,
+               'METADATA': METADATA}
 
 if GDRIVE_ID:
     list_drives_dict['Main'] = {"drive_id": GDRIVE_ID, "index_link": INDEX_URL}
@@ -772,19 +780,8 @@ aria2 = ariaAPI(ariaClient(host="http://localhost", port=6800, secret=""))
 
 
 def get_client():
-    return qbClient(
-                host="localhost",
-                port=8090, 
-                VERIFY_WEBUI_CERTIFICATE=False, 
-                REQUESTS_ARGS={
-                            'timeout': (30, 60)
-                },
-                HTTPADAPTER_ARGS={
-                            "pool_maxsize": 500,
-                            "max_retries": 10,
-                            "pool_block": True,
-                },
-    )
+    return qbClient(host="localhost", port=8090, VERIFY_WEBUI_CERTIFICATE=False, REQUESTS_ARGS={'timeout': (30, 60)})
+
 
 def aria2c_init():
     try:

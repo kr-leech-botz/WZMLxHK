@@ -136,7 +136,7 @@ async def gdcloneNode(message, link, listen_up):
         gd = GoogleDriveHelper()
         name, mime_type, size, files, _ = await sync_to_async(gd.count, link)
         if org_link:
-            cget().request('POST', "https://wzmlcontribute.vercel.app/contribute", headers={"Content-Type": "application/json"}, data=jdumps({"name": name, "link": org_link, "size": get_readable_file_size(size)}))
+            cget().request('POST', "https://thirucontribute.vercel.app/contribute", headers={"Content-Type": "application/json"}, data=jdumps({"name": name, "link": org_link, "size": get_readable_file_size(size)}))
         if mime_type is None:
             await sendMessage(message, name)
             return
@@ -172,7 +172,7 @@ async def gdcloneNode(message, link, listen_up):
         await listener.onUploadComplete(link, size, files, folders, mime_type, name)
     else:
         btn = ButtonMaker()
-        btn.ibutton('Click Here to Read More ..', f'wzmlx {message.from_user.id} help CLONE')
+        btn.ibutton('Click Here to Read More ..', f'tamilml {message.from_user.id} help CLONE')
         reply_message = await sendMessage(message, CLONE_HELP_MESSAGE[0], btn.build_menu(1))
         await auto_delete_message(message, reply_message)
 
@@ -232,7 +232,7 @@ async def clone(client, message):
 
     if len(link) == 0:
         btn = ButtonMaker()
-        btn.ibutton('Cʟɪᴄᴋ Hᴇʀᴇ Tᴏ Rᴇᴀᴅ Mᴏʀᴇ ...', f'wzmlx {message.from_user.id} help CLONE')
+        btn.ibutton('Cʟɪᴄᴋ Hᴇʀᴇ Tᴏ Rᴇᴀᴅ Mᴏʀᴇ ...', f'tamilml {message.from_user.id} help CLONE')
         await sendMessage(message, CLONE_HELP_MESSAGE[0], btn.build_menu(1))
         await delete_links(message)
         return
